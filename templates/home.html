@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="topbar-filter">
+            <p>Found <span>1,608 movies</span> in total</p>
+            <label>Sort by:</label>
+            <select>
+                <option value="popularity">Popularity Descending</option>
+                <option value="popularity">Popularity Ascending</option>
+                <option value="rating">Rating Descending</option>
+                <option value="rating">Rating Ascending</option>
+                <option value="date">Release date Descending</option>
+                <option value="date">Release date Ascending</option>
+            </select>
+            <a href="movielist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
+            <a  href="moviegrid.html" class="grid"><i class="ion-grid"></i></a>
+        </div>
+        {% if response %}
+        {% for i in response %}
+        <div class="movie-item-style-2">
+            <img width="150" src="{{ i.rasm }}" alt="">
+            <div class="mv-item-infor">
+                <h6><a href="moviesingle.html">{{ i.nomi }} <span>({{ i.yili }})</span></a></h6>
+                <p class="rate"><i class="ion-android-star"></i><span>{{ i.reyting }}</span> /10</p>
+                <p class="describe">{{ i.batafsil }}...</p>
+                <p class="run-time"> Run Time: {{ i.davomiyligi }}    .     <span>MMPA: PG-13 </span>    .     <span>Release: {{ i.upload_date }}</span></p>
+                <p>Director: <a href="#">{{ i.avtor }}</a></p>
+                <p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        
+        <div class="topbar-filter">
+            <label>Movies per page:</label>
+            <select>
+                <option value="range">5 Movies</option>
+                <option value="saab">10 Movies</option>
+            </select>
+            <div class="pagination2">
+                <span>Page 1 of 2:</span>
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#"><i class="ion-arrow-right-b"></i></a>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/plugins2.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
