@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 genre = (
@@ -23,6 +24,7 @@ class Movie(models.Model):
     reyting = models.FloatField(default=0)
     avtor = models.CharField(max_length=50, default='')
     upload_date = models.DateField(auto_now=True, verbose_name='Yuklangan sanasi')
+    owner = models.ForeignKey(User, related_name='movies', on_delete=models.CASCADE)
     is_bestseller = models.BooleanField(verbose_name="Eng ko'p sotilgan kino", default=False)
 
     class Meta:

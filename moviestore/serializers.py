@@ -1,11 +1,22 @@
 from rest_framework import fields, serializers
-from .models import Movie, genre
+from .models import Movie
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    movies = serializers.PrimaryKeyRelatedField(many=True, queryset=Movie.objects.all())
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'movies']
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Movie
-        fields = ['nomi', 'janr', 'narxi', 'yili', 'davomiyligi', 'movie', 'batafsil', 'reyting', 'avtor', 'rasm']
+        fields = ['nomi', 'janr', 'narxi', 'yili', 'davomiyligi', 'movie', 'batafsil', 'reyting', 'avtor', 'rasm', 'owner']
 
     def create(self, validated_data):
         return Movie.objects.create(**validated_data)
